@@ -14,7 +14,7 @@
     <PackageReleaseNotes>v0.1
 OrderedParallel.ForAsync</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Copyright>©2020, Egliss</Copyright>
+    <Copyright>Copyright (c) 2020 Egliss</Copyright>
     <Version>0.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
