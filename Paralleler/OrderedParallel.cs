@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Egliss.Paralleler
 {
-    public class OrderedParallel
+    public static class OrderedParallel
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action)
