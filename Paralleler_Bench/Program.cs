@@ -11,31 +11,74 @@ namespace Paralleler_Bench
     {
         private static void Main(string[] args)
         {
+            //OrderedParallel
+            //    .ForAsync(0, 1000, (int i) => {}, 2)
+            //    .Wait();
             BenchmarkRunner.Run<Program>();
         }
-
-        [Benchmark(Description = "Egliss.Paralleler.OrderedParallel.ForAsync")]
-        public void ParallelerForAsync()
+        [Benchmark(Description = "OrderedParallel.ForAsync(-1)")]
+        public void ParallelerForAsyncM1()
         {
-            var token = new CancellationTokenSource();
-            var opt = new ParallelOptions()
-            {
-                CancellationToken = token.Token
-            };
             OrderedParallel
-                .ForAsync(0, 100, opt, (int o) => { })
+                .ForAsync(0, 1000, (int i) => { }, -1)
                 .Wait();
         }
-
-        [Benchmark(Description = "System.Threading.Tasks.Parallel.For")]
-        public void ParallelFor()
+        [Benchmark(Description = "Parallel.For(-1)")]
+        public void ParallelForM1()
         {
-            var token = new CancellationTokenSource();
             var opt = new ParallelOptions()
             {
-                CancellationToken = token.Token
+                MaxDegreeOfParallelism = -1
             };
-            Parallel.For(0, 100, opt, (int o) => { });
+            Parallel.For(0, 1000, opt, (int o) => { });
+        }
+        [Benchmark(Description = "OrderedParallel.ForAsync(1)")]
+        public void ParallelerForAsync1()
+        {
+            OrderedParallel
+                .ForAsync(0, 1000, (int i) => { }, 1)
+                .Wait();
+        }
+        [Benchmark(Description = "Parallel.For(1)")]
+        public void ParallelFor1()
+        {
+            var opt = new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = 1
+            };
+            Parallel.For(0, 1000, opt, (int o) => { });
+        }
+        [Benchmark(Description = "OrderedParallel.ForAsync(4)")]
+        public void ParallelerForAsync4()
+        {
+            OrderedParallel
+                .ForAsync(0, 1000, (int i) => { }, 4)
+                .Wait();
+        }
+        [Benchmark(Description = "Parallel.For(4)")]
+        public void ParallelFor4()
+        {
+            var opt = new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = 4
+            };
+            Parallel.For(0, 1000, opt, (int o) => { });
+        }
+        [Benchmark(Description = "OrderedParallel.ForAsync(8)")]
+        public void ParallelerForAsync8()
+        {
+            OrderedParallel
+                .ForAsync(0, 1000, (int i) => { }, 8)
+                .Wait();
+        }
+        [Benchmark(Description = "Parallel.For(8)")]
+        public void ParallelFor8()
+        {
+            var opt = new ParallelOptions()
+            {
+                MaxDegreeOfParallelism = 8
+            };
+            Parallel.For(0, 1000, opt, (int o) => { });
         }
     }
 }
