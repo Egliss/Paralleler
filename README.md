@@ -13,7 +13,7 @@ using Egliss.Paralleler;
 
 async Task Function()
 {
-    await OrderedParallel.ForAsync(0, 100, Environment.ProcessorCount / 2, (index) => Console.WriteLine(index));
+    await OrderedParallel.ForAsync(0, 100, (index) => Console.WriteLine(index), Environment.ProcessorCount / 2);
 }
 ```
 output
@@ -22,7 +22,11 @@ output
 1
 2
 ...
+96
 97
+95 
 98
 99
 ```
+**index is not synchronize**
+but, OrderedParallel.For() will try to perform operations in ascending order as much as possible.
