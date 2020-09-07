@@ -11,9 +11,6 @@ namespace Paralleler_Bench
     {
         private static void Main(string[] args)
         {
-            //OrderedParallel
-            //    .ForAsync(0, 1000, (int i) => {}, 2)
-            //    .Wait();
             BenchmarkRunner.Run<Program>();
         }
         [Benchmark(Description = "OrderedParallel.ForAsync(-1)")]
