@@ -60,6 +60,8 @@ namespace Egliss
             var next = Interlocked.Increment(ref this._activeIndex) - 1;
             if (next >= this._endIndex)
                 return;
+            if (token.IsCancellationRequested)
+                return;
 
             this.RunNext(next, action, token);
         }
