@@ -10,32 +10,35 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action)
         {
-            if (beginIndex >= endIndex)
+            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, -1);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action, int threadCount)
         {
-            if (beginIndex >= endIndex)
+            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, threadCount);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int, CancellationToken> action, CancellationToken token, int threadCount = -1)
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
-            if (endIndex <= beginIndex)
+            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, token, threadCount);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool ThrowIfInvalidForArgument<T>(int beginIndex, int endIndex, T action) where T : class
+        {
+            if (beginIndex >= endIndex)
+                return false;
+            if (action == null)
+                throw new ArgumentNullException(nameof(action));
+            return true;
         }
     }
 }
