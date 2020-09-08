@@ -10,7 +10,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action)
         {
-            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, -1);
@@ -18,7 +18,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action, int threadCount)
         {
-            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, threadCount);
@@ -26,7 +26,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int, CancellationToken> action, CancellationToken token, int threadCount = -1)
         {
-            if (ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, token, threadCount);
