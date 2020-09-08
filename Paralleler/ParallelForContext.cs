@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,10 +23,7 @@ namespace Egliss
             var tasks = new Task[context._runnerCount];
             for (var index = 0; index < context._runnerCount; index++)
             {
-                var next = Interlocked.Increment(ref context._activeIndex) - 1;
-                if (next >= context._endIndex)
-                    return;
-                tasks[index] = Task.Run(() => context.RunNext(next, action));
+                tasks[index] = Task.Run(() => context.RunNext(action));
             }
             await Task.WhenAll(tasks);
         }
@@ -45,25 +40,27 @@ namespace Egliss
             }
             await Task.WhenAll(tasks);
         }
-        private void RunNext(int index, Action<int> action)
+        private void RunNext(Action<int> action)
         {
-            action(index);
             var next = Interlocked.Increment(ref this._activeIndex) - 1;
             if (next >= this._endIndex)
                 return;
 
-            this.RunNext(next, action);
+            action(next);
+
+            this.RunNext(action);
         }
-        private void RunNext(int index, Action<int, CancellationToken> action, CancellationToken token)
+        private void RunNext(Action<int, CancellationToken> action, CancellationToken token)
         {
-            action(index, token);
             var next = Interlocked.Increment(ref this._activeIndex) - 1;
             if (next >= this._endIndex)
                 return;
             if (token.IsCancellationRequested)
                 return;
 
-            this.RunNext(next, action, token);
+            action(next, token);
+
+            this.RunNext(action, token);
         }
     }
 }
