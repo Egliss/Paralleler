@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Paralleler_Test
 {
     [TestClass]
-    public class OrderedParallelTest
+    public class OrderedParallelForTest
     {
         [TestMethod]
         public async Task ResultTest()
