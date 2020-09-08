@@ -1,12 +1,14 @@
 # Paralleler
 [![NuGet version (Paralleler)](https://img.shields.io/nuget/v/Paralleler.svg?style=flat-square)](https://www.nuget.org/packages/Paralleler/)
-![.NET Core](https://github.com/Egliss/Paralleler/workflows/.NET%20Core/badge.svg?branch=master)
+![.Net Core](https://github.com/Egliss/Paralleler/workflows/.NET%20Core/badge.svg)  
+
 ## Summary
 Paralleler is additional implement of System.Threading.Parallel.  
 this library provide some usuful feature of the parallel system.  
 
-+ `Parallel.For` with ordered index
-+ AwaitableParallel 
++ `Parallel.ForAsync` with ordered index
++ `Parallel.ForEachAsync` with ordered element
++ Awaitable Parallel 
 
 ## System.Threading.Tasks.Parallel
 
