@@ -33,10 +33,7 @@ namespace Egliss
             var tasks = new Task[context._runnerCount];
             for (var index = 0; index < context._runnerCount; index++)
             {
-                var next = Interlocked.Increment(ref context._activeIndex) - 1;
-                if (next >= context._endIndex)
-                    return;
-                tasks[index] = Task.Run(() => context.RunNext(next, action, token));
+                tasks[index] = Task.Run(() => context.RunNext(action, token));
             }
             await Task.WhenAll(tasks);
         }
