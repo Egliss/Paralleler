@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,7 +9,7 @@ namespace Egliss
     public class ParallelForEachContext<T>
     {
         // will lock() target
-        private object _mutex = new object();
+        private readonly object _mutex = new object();
         private IEnumerator<T> _activeIterator = null;
         private readonly int _runnerCount = 0;
         private readonly int _elementCount = 0;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Egliss.Paralleler;
@@ -19,8 +18,7 @@ namespace Paralleler_Test
             {
                 0,1,-2,3,4,5,-6,7,8,9
             };
-            var t1 = new List<int>()
-            {};
+            var t1 = new List<int>();
             var t0Result = 0;
             var t1Result = 0;
             await OrderedParallel.ForEachAsync(t0, (value) => t0Result += value);
@@ -62,7 +60,8 @@ namespace Paralleler_Test
             };
             var t0Result = 0;
 
-            await OrderedParallel.ForEachAsync(t0, (int index) => {
+            await OrderedParallel.ForEachAsync(t0, (int index) =>
+            {
                 t0Result += 1;
                 Console.WriteLine(index);
             }
