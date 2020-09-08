@@ -1,4 +1,7 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Egliss.Paralleler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -6,25 +9,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Paralleler_Test
 {
     [TestClass]
-    public class OrderedParallelTest
+    class OrderedParallelForEachTest
     {
         [TestMethod]
         public async Task ResultTest()
         {
-            var t0 = 0;
-            var t1 = 0;
-            var t2 = 0;
-            var t3 = 0;
+            var t0 = new List<int>()
+            {
+                0,1,2
+            };
+            var t1 = new List<int>()
+            {};
+            var t0Result = 0;
+            var t1Result = 0;
+            await OrderedParallel.ForEachAsync(t0, (value) => t0Result += value);
+            await OrderedParallel.ForEachAsync(t1, (value) => t1Result = 100);
 
-            await OrderedParallel.ForAsync(0, 0, (int index) => t0 += index);
-            await OrderedParallel.ForAsync(0, -1, (int index) => t1 += index);
-            await OrderedParallel.ForAsync(-1, 1, (int index) => t2 += index);
-            await OrderedParallel.ForAsync(-1, -1, (int index) => t3 += index);
-
-            Assert.AreEqual(0, t0);
-            Assert.AreEqual(0, t1);
-            Assert.AreEqual(-1, t2);
-            Assert.AreEqual(0, t3);
+            Assert.AreEqual(3, t0);
+            Assert.AreEqual(100, t1);
         }
         [TestMethod]
         public async Task CancelTest()
