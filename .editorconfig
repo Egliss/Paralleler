@@ -1,215 +1,152 @@
-# https://docs.microsoft.com/ja-jp/visualstudio/ide/editorconfig-naming-conventions?view=vs-2019
-# EditorConfig is awesome: https://EditorConfig.org
-
-# top-most EditorConfig file
+# 上位ディレクトリから .editorconfig 設定を継承する場合は、以下の行を削除します
 root = true
 
-# Don't use tabs for indentation.
-[*]
-indent_style = space
-# (Please don't specify an indent_size here; that has too many unintended consequences.)
-
-# Code files
-[*.{cs,csx}]
-indent_size = 4
+[*.{xml,json,pubxml,cs,csproj,txt,yml,yaml}]
+trim_trailing_whitespace = true
 insert_final_newline = true
-charset = utf-8-bom
-
-# XML project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
-indent_size = 2
-
-# XML config files
-[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
-indent_size = 2
-
-# JSON files
-[*.json]
-indent_size = 2
-
-# Shell script files
-[*.sh]
 end_of_line = lf
-indent_size = 2
+charset = utf-8
 
+# C# ファイル
 [*.cs]
+# 不要なnamespaceのusing
+dotnet_diagnostic.IDE0005.severity = warning
+# thisの強制付与
+dotnet_diagnostic.IDE0009.severity = warning
 
-# IDE0055: Fix formatting
-dotnet_diagnostic.IDE0055.severity = warning
+# インデントと間隔
+indent_size = 4
+indent_style = space
+tab_width = 4
 
-# Sort using and Import directives with System.* appearing first
-dotnet_sort_system_directives_first = true
+#### .NET コーディング規則 ####
+
+# using の整理
 dotnet_separate_import_directive_groups = false
-# Avoid "this." and "Me." if not necessary
-dotnet_style_qualification_for_field = true:error
-dotnet_style_qualification_for_property = true:error
-dotnet_style_qualification_for_method = true:error
-dotnet_style_qualification_for_event = true:error
+dotnet_sort_system_directives_first = false
+file_header_template = unset
 
-# Use language keywords instead of framework type names for type references
-dotnet_style_predefined_type_for_locals_parameters_members = true:warning
-dotnet_style_predefined_type_for_member_access = true:warning
+# this. と Me. の設定
+dotnet_style_qualification_for_event = true:warning
+dotnet_style_qualification_for_field = true:warning
+dotnet_style_qualification_for_method = true:warning
+dotnet_style_qualification_for_property = true:warning
 
-# Suggest more modern language features when available
-dotnet_style_object_initializer = true:warning
-dotnet_style_collection_initializer = true:warning
-dotnet_style_coalesce_expression = true:warning
-dotnet_style_null_propagation = true:warning
-dotnet_style_explicit_tuple_names = true:warning
+# 言語キーワードと BCL の種類の設定
+dotnet_style_predefined_type_for_locals_parameters_members = true:silent
+dotnet_style_predefined_type_for_member_access = true:silent
 
-# Non-private static fields are PascalCase
-dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.severity = error
-dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.symbols = non_private_static_fields
-dotnet_naming_rule.non_private_static_fields_should_be_pascal_case.style = non_private_static_field_style
+# かっこの設定
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
+dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
 
-dotnet_naming_symbols.non_private_static_fields.applicable_kinds = field
-dotnet_naming_symbols.non_private_static_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
-dotnet_naming_symbols.non_private_static_fields.required_modifiers = static
+# 修飾子設定
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
-dotnet_naming_style.non_private_static_field_style.capitalization = pascal_case
+# 式レベルの設定
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_operator_placement_when_wrapping = beginning_of_line
+dotnet_style_prefer_auto_properties = true:silent
+dotnet_style_prefer_compound_assignment = true:suggestion
+dotnet_style_prefer_conditional_expression_over_assignment = true:silent
+dotnet_style_prefer_conditional_expression_over_return = true:silent
+dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
+dotnet_style_prefer_inferred_tuple_names = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
+dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
+dotnet_style_prefer_simplified_interpolation = true:suggestion
 
-# Non-private readonly fields are PascalCase
-dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.symbols = non_private_readonly_fields
-dotnet_naming_rule.non_private_readonly_fields_should_be_pascal_case.style = non_private_readonly_field_style
+# フィールド設定
+dotnet_style_readonly_field = true:suggestion
 
-dotnet_naming_symbols.non_private_readonly_fields.applicable_kinds = field
-dotnet_naming_symbols.non_private_readonly_fields.applicable_accessibilities = public, protected, internal, protected_internal, private_protected
-dotnet_naming_symbols.non_private_readonly_fields.required_modifiers = readonly
+# パラメーターの設定
+dotnet_code_quality_unused_parameters = all:suggestion
 
-dotnet_naming_style.non_private_readonly_field_style.capitalization = pascal_case
+# Suppression preferences
+dotnet_remove_unnecessary_suppression_exclusions = none
 
-# Constants are PascalCase
-dotnet_naming_rule.constants_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
-dotnet_naming_rule.constants_should_be_pascal_case.style = constant_style
+#### C# コーディング規則 ####
 
-dotnet_naming_symbols.constants.applicable_kinds = field, local
-dotnet_naming_symbols.constants.required_modifiers = const
+# var を優先
+csharp_style_var_elsewhere = false:silent
+csharp_style_var_for_built_in_types = false:silent
+csharp_style_var_when_type_is_apparent = false:silent
 
-dotnet_naming_style.constant_style.capitalization = pascal_case
+# 式のようなメンバー
+csharp_style_expression_bodied_accessors = true:silent
+csharp_style_expression_bodied_constructors = false:silent
+csharp_style_expression_bodied_indexers = true:silent
+csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_local_functions = false:silent
+csharp_style_expression_bodied_methods = false:silent
+csharp_style_expression_bodied_operators = false:silent
+csharp_style_expression_bodied_properties = true:silent
 
-# Static fields are camelCase and start with _
-dotnet_naming_rule.static_fields_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.static_fields_should_be_camel_case.symbols = static_fields
-dotnet_naming_rule.static_fields_should_be_camel_case.style = static_field_style
+# パターン マッチング設定
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_prefer_pattern_matching = true:silent
+csharp_style_prefer_switch_expression = true:suggestion
 
-dotnet_naming_symbols.static_fields.applicable_kinds = field
-dotnet_naming_symbols.static_fields.required_modifiers = static
+# Null チェック設定
+csharp_style_conditional_delegate_call = true:suggestion
 
-dotnet_naming_style.static_field_style.capitalization = camel_case
-dotnet_naming_style.static_field_style.required_prefix = _
+# 修飾子設定
+csharp_prefer_static_local_function = true:suggestion
+csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:silent
 
-# Instance fields are camelCase and start with _
-dotnet_naming_rule.instance_fields_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
-dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
+# コード ブロックの設定
+csharp_prefer_braces = true:silent
+csharp_prefer_simple_using_statement = true:suggestion
 
-dotnet_naming_symbols.instance_fields.applicable_kinds = field
-dotnet_naming_style.instance_field_style.capitalization = camel_case
-dotnet_naming_style.instance_field_style.required_prefix = _
+# 式レベルの設定
+csharp_prefer_simple_default_expression = true:suggestion
+csharp_style_deconstructed_variable_declaration = true:suggestion
+csharp_style_inlined_variable_declaration = true:suggestion
+csharp_style_pattern_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_index_operator = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
+csharp_style_throw_expression = true:suggestion
+csharp_style_unused_value_assignment_preference = discard_variable:suggestion
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
-# Instance public property are camelCase and start
-dotnet_naming_rule.open_property.severity = warning
-dotnet_naming_rule.open_property.symbols = open_property
-dotnet_naming_rule.open_property.style = open_property
+# 'using' ディレクティブの基本設定
+csharp_using_directive_placement = outside_namespace:silent
 
-dotnet_naming_symbols.open_property.applicable_accessibilities = public, internal
-dotnet_naming_symbols.open_property.applicable_kinds = property
-dotnet_naming_style.open_property.capitalization = camel_case
+#### C# 書式ルール ####
 
-# Instance protected or private property are camelCase and start with _
-dotnet_naming_rule.close_property.severity = warning
-dotnet_naming_rule.close_property.symbols = close_property
-dotnet_naming_rule.close_property.style = close_property
-
-dotnet_naming_symbols.close_property.applicable_accessibilities = protected, protected_internal, private_protected
-dotnet_naming_symbols.close_property.applicable_kinds = property
-dotnet_naming_style.close_property.capitalization = camel_case
-dotnet_naming_style.close_property.required_prefix = _
-
-# Locals and parameters are camelCase
-dotnet_naming_rule.locals_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.locals_should_be_camel_case.symbols = locals_and_parameters
-dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_style
-
-dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
-
-dotnet_naming_style.camel_case_style.capitalization = camel_case
-
-# Local functions are camelCase
-dotnet_naming_rule.local_functions_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
-dotnet_naming_rule.local_functions_should_be_pascal_case.style = local_function_style
-
-dotnet_naming_symbols.local_functions.applicable_kinds = local_function
-
-dotnet_naming_style.local_function_style.capitalization = camel_case
-
-# By default, name items with PascalCase
-dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.members_should_be_pascal_case.symbols = all_members
-dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
-
-dotnet_naming_symbols.all_members.applicable_kinds = *
-
-dotnet_naming_style.pascal_case_style.capitalization = pascal_case
-
-# error RS2008: Enable analyzer release tracking for the analyzer project containing rule '{0}'
-dotnet_diagnostic.RS2008.severity = none
-
-# IDE0073: File header
-dotnet_diagnostic.IDE0073.severity = warning
-file_header_template = Licensed to the .NET Foundation under one or more agreements.\nThe .NET Foundation licenses this file to you under the MIT license.\nSee the LICENSE file in the project root for more information.
-
-# Newline settings
-csharp_new_line_before_open_brace = all
-csharp_new_line_before_else = true
+# 改行設定
 csharp_new_line_before_catch = true
+csharp_new_line_before_else = true
 csharp_new_line_before_finally = true
-csharp_new_line_before_members_in_object_initializers = true
 csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_open_brace = all
 csharp_new_line_between_query_expression_clauses = true
 
-# Indentation preferences
+# インデント設定
 csharp_indent_block_contents = true
 csharp_indent_braces = false
 csharp_indent_case_contents = true
-csharp_indent_case_contents_when_block = true
+csharp_indent_case_contents_when_block = false
+csharp_indent_labels = one_less_than_current
 csharp_indent_switch_labels = true
-csharp_indent_labels = flush_left
 
-# Prefer "var" everywhere
-csharp_style_var_for_built_in_types = true:suggestion
-csharp_style_var_when_type_is_apparent = true:suggestion
-csharp_style_var_elsewhere = true:suggestion
-
-# Prefer method-like constructs to have a block body
-csharp_style_expression_bodied_methods = false:none
-csharp_style_expression_bodied_constructors = false:none
-csharp_style_expression_bodied_operators = false:none
-
-# Prefer property-like constructs to have an expression-body
-csharp_style_expression_bodied_properties = true:none
-csharp_style_expression_bodied_indexers = true:none
-csharp_style_expression_bodied_accessors = true:none
-
-# Suggest more modern language features when available
-csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
-csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
-csharp_style_inlined_variable_declaration = true:suggestion
-csharp_style_throw_expression = true:suggestion
-csharp_style_conditional_delegate_call = true:suggestion
-
-# Space preferences
+# スペース設定
 csharp_space_after_cast = false
 csharp_space_after_colon_in_inheritance_clause = true
 csharp_space_after_comma = true
 csharp_space_after_dot = false
-csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_after_keywords_in_control_flow_statements = false
 csharp_space_after_semicolon_in_for_statement = true
 csharp_space_around_binary_operators = before_and_after
-csharp_space_around_declaration_statements = do_not_ignore
+csharp_space_around_declaration_statements = false
 csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_before_comma = false
 csharp_space_before_dot = false
@@ -225,53 +162,57 @@ csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
-# Blocks are allowed
-csharp_prefer_braces = true:silent
+# 折り返しの設定
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-# warning RS0037: PublicAPI.txt is missing '#nullable enable'
-dotnet_diagnostic.RS0037.severity = none
+#### 命名スタイル ####
 
-# warning RS0005: Do not use generic CodeAction.Create to create CodeAction
-dotnet_diagnostic.RS0005.severity = none
+# 名前付けルール
 
-# IDE0005: Using directive is unnecessary
+dotnet_naming_rule.interface_should_be_i_で始まる.severity = suggestion
+dotnet_naming_rule.interface_should_be_i_で始まる.symbols = interface
+dotnet_naming_rule.interface_should_be_i_で始まる.style = i_で始まる
+
+dotnet_naming_rule.型_should_be_パスカル_ケース.severity = suggestion
+dotnet_naming_rule.型_should_be_パスカル_ケース.symbols = 型
+dotnet_naming_rule.型_should_be_パスカル_ケース.style = パスカル_ケース
+
+dotnet_naming_rule.フィールド以外のメンバー_should_be_パスカル_ケース.severity = suggestion
+dotnet_naming_rule.フィールド以外のメンバー_should_be_パスカル_ケース.symbols = フィールド以外のメンバー
+dotnet_naming_rule.フィールド以外のメンバー_should_be_パスカル_ケース.style = パスカル_ケース
+
+# 記号の仕様
+
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.interface.required_modifiers = 
+
+dotnet_naming_symbols.型.applicable_kinds = class, struct, interface, enum
+dotnet_naming_symbols.型.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.型.required_modifiers = 
+
+dotnet_naming_symbols.フィールド以外のメンバー.applicable_kinds = property, event, method
+dotnet_naming_symbols.フィールド以外のメンバー.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.フィールド以外のメンバー.required_modifiers = 
+
+# 命名スタイル
+
+dotnet_naming_style.パスカル_ケース.required_prefix = 
+dotnet_naming_style.パスカル_ケース.required_suffix = 
+dotnet_naming_style.パスカル_ケース.word_separator = 
+dotnet_naming_style.パスカル_ケース.capitalization = pascal_case
+
+dotnet_naming_style.i_で始まる.required_prefix = I
+dotnet_naming_style.i_で始まる.required_suffix = 
+dotnet_naming_style.i_で始まる.word_separator = 
+dotnet_naming_style.i_で始まる.capitalization = pascal_case
+
+
+# In order to remove unnecessary imports the IDE0005 (unnecessary import) diagnostic id must be configured in your .editorconfig. When running dotnet-format pass the --fix-style option and specify a severity that includes the configured IDE0005 severity.
+
+# CS1591: 公開されている型またはメンバーの XML コメントがありません
+dotnet_diagnostic.CS1591.severity = silent
+
+[*.{cs,vb}]
 dotnet_diagnostic.IDE0005.severity = warning
-# IDE0011: Add braces
-csharp_prefer_braces = when_multiline:warning
-# NOTE: We need the below severity entry for Add Braces due to https://github.com/dotnet/roslyn/issues/44201
-dotnet_diagnostic.IDE0011.severity = warning
-# IDE0035: Remove unreachable code
-dotnet_diagnostic.IDE0035.severity = warning
-# IDE0036: Order modifiers
-dotnet_diagnostic.IDE0036.severity = warning
-# IDE0040: Add accessibility modifiers
-dotnet_diagnostic.IDE0040.severity = warning
-# IDE0043: Format string contains invalid placeholder
-dotnet_diagnostic.IDE0043.severity = warning
-# IDE0044: Make field readonly
-dotnet_diagnostic.IDE0044.severity = warning
-
-# CONSIDER: Are IDE0051 and IDE0052 too noisy to be warnings for IDE editing scenarios? Should they be made build-only warnings?
-# IDE0051: Remove unused private member
-dotnet_diagnostic.IDE0051.severity = warning
-
-# IDE0052: Remove unread private member
-dotnet_diagnostic.IDE0052.severity = warning
-
-# IDE0059: Unnecessary assignment to a value
-dotnet_diagnostic.IDE0059.severity = warning
-
-# IDE0060: Remove unused parameter
-dotnet_diagnostic.IDE0060.severity = warning
-
-# CA1822: Make member static
-dotnet_diagnostic.CA1822.severity = warning
-
-# Prefer "var" everywhere
-dotnet_diagnostic.IDE0007.severity = warning
-csharp_style_var_for_built_in_types = true:warning
-csharp_style_var_when_type_is_apparent = true:warning
-csharp_style_var_elsewhere = true:warning
-
