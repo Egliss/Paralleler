@@ -18,7 +18,9 @@ jobs:
         dotnet restore
         dotnet tool restore
     - name: Lint
-      run: dotnet format Paralleler.sln --check --fix-style
+      run: |
+        dotnet format Paralleler.sln --check
+        dotnet format Paralleler.sln --check --fix-style warn
     - name: Build
       run: dotnet build --no-restore
     - name: Test
