@@ -1,26 +1,30 @@
-name: .NET Core
+name: .NET
 
 on:
   pull_request:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
-    - name: Install dependencies
-      run: dotnet restore
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: |
+        dotnet restore
+        dotnet tool restore
     - name: Lint
       run: |
-        dotnet tool restore
-        dotnet format --check
+        dotnet format Paralleler.sln --check
+        dotnet format Paralleler.sln --check --fix-style warn
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-build --verbosity normal
     - uses: actions/upload-artifact@v2
       with:
         name: ParallelerOutput

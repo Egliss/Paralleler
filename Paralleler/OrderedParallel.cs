@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -11,7 +11,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action)
         {
-            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if(!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, -1);
@@ -19,7 +19,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int> action, int threadCount)
         {
-            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if(!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, threadCount);
@@ -27,7 +27,7 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task ForAsync(int beginIndex, int endIndex, Action<int, CancellationToken> action, CancellationToken token, int threadCount = -1)
         {
-            if (!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
+            if(!ThrowIfInvalidForArgument(beginIndex, endIndex, action))
                 return;
 
             await ParallelForContext.ForAsync(beginIndex, endIndex, action, token, threadCount);
@@ -55,18 +55,18 @@ namespace Egliss.Paralleler
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool ThrowIfInvalidForArgument<T>(int beginIndex, int endIndex, T action) where T : class
         {
-            if (beginIndex >= endIndex)
+            if(beginIndex >= endIndex)
                 return false;
-            if (action == null)
+            if(action == null)
                 throw new ArgumentNullException(nameof(action));
             return true;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void ThrowIfInvalidForEachArgument<T, U>(IEnumerable<T> container, U action) where U : class
         {
-            if (container == null)
+            if(container == null)
                 throw new ArgumentNullException(nameof(container));
-            if (action == null)
+            if(action == null)
                 throw new ArgumentNullException(nameof(action));
         }
     }

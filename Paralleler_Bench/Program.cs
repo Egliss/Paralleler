@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Egliss.Paralleler;
+using System.Threading.Tasks;
 
 namespace Paralleler_Bench
 {

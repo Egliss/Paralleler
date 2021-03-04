@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace Egliss
         {
             this._activeIndex = begin;
             this._endIndex = end;
-            if (threadCount == -1)
+            if(threadCount == -1)
                 threadCount = Environment.ProcessorCount / 2;
             this._runnerCount = Math.Max(1, Math.Min(threadCount, end - begin));
         }
@@ -21,7 +21,7 @@ namespace Egliss
         {
             var context = new ParallelForContext(beginIndex, endIndex, threadCount);
             var tasks = new Task[context._runnerCount];
-            for (var index = 0; index < context._runnerCount; index++)
+            for(var index = 0; index < context._runnerCount; index++)
             {
                 tasks[index] = Task.Run(() => context.RunNext(action));
             }
@@ -31,7 +31,7 @@ namespace Egliss
         {
             var context = new ParallelForContext(beginIndex, endIndex, threadCount);
             var tasks = new Task[context._runnerCount];
-            for (var index = 0; index < context._runnerCount; index++)
+            for(var index = 0; index < context._runnerCount; index++)
             {
                 tasks[index] = Task.Run(() => context.RunNext(action, token));
             }
@@ -40,7 +40,7 @@ namespace Egliss
         private void RunNext(Action<int> action)
         {
             var next = Interlocked.Increment(ref this._activeIndex) - 1;
-            if (next >= this._endIndex)
+            if(next >= this._endIndex)
                 return;
 
             action(next);
@@ -50,9 +50,9 @@ namespace Egliss
         private void RunNext(Action<int, CancellationToken> action, CancellationToken token)
         {
             var next = Interlocked.Increment(ref this._activeIndex) - 1;
-            if (next >= this._endIndex)
+            if(next >= this._endIndex)
                 return;
-            if (token.IsCancellationRequested)
+            if(token.IsCancellationRequested)
                 return;
 
             action(next, token);

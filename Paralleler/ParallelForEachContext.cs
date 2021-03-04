@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,17 +18,17 @@ namespace Egliss
         {
             this._activeIterator = container.GetEnumerator();
             this._elementCount = container.Count();
-            if (threadCount == -1)
+            if(threadCount == -1)
                 threadCount = Environment.ProcessorCount / 2;
             this._runnerCount = Math.Max(1, Math.Min(threadCount, this._elementCount));
         }
         public static async Task ForEachAsync(IEnumerable<T> container, Action<T> action, int threadCount)
         {
             var context = new ParallelForEachContext<T>(container, threadCount);
-            if (context._elementCount <= 0)
+            if(context._elementCount <= 0)
                 return;
             var tasks = new Task[context._runnerCount];
-            for (var index = 0; index < context._runnerCount; index++)
+            for(var index = 0; index < context._runnerCount; index++)
             {
                 tasks[index] = Task.Run(() => context.RunNext(action));
             }
@@ -37,10 +37,10 @@ namespace Egliss
         public static async Task ForEachAsync(IEnumerable<T> container, Action<T, CancellationToken> action, CancellationToken token, int threadCount = -1)
         {
             var context = new ParallelForEachContext<T>(container, threadCount);
-            if (context._elementCount <= 0)
+            if(context._elementCount <= 0)
                 return;
             var tasks = new Task[context._runnerCount];
-            for (var index = 0; index < context._runnerCount; index++)
+            for(var index = 0; index < context._runnerCount; index++)
             {
                 tasks[index] = Task.Run(() => context.RunNext(action, token));
             }
@@ -49,18 +49,18 @@ namespace Egliss
         private void RunNext(Action<T> action)
         {
             T element;
-            lock (this._mutex)
+            lock(this._mutex)
             {
-                if (this._activeIterator == null)
+                if(this._activeIterator == null)
                     return;
-                if (!this._activeIterator.MoveNext())
+                if(!this._activeIterator.MoveNext())
                 {
                     this._activeIterator = null;
                     return;
                 }
                 element = this._activeIterator.Current;
             }
-            if (element == null)
+            if(element == null)
                 return;
 
             action(element);
@@ -70,20 +70,20 @@ namespace Egliss
         private void RunNext(Action<T, CancellationToken> action, CancellationToken token)
         {
             T element;
-            lock (this._mutex)
+            lock(this._mutex)
             {
-                if (this._activeIterator == null)
+                if(this._activeIterator == null)
                     return;
-                if (!this._activeIterator.MoveNext())
+                if(!this._activeIterator.MoveNext())
                 {
                     this._activeIterator = null;
                     return;
                 }
                 element = this._activeIterator.Current;
             }
-            if (element == null)
+            if(element == null)
                 return;
-            if (token.IsCancellationRequested)
+            if(token.IsCancellationRequested)
                 return;
 
             action(element, token);
