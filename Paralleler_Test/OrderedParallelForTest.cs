@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
 using Egliss.Paralleler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Paralleler_Test
 {
@@ -34,11 +34,11 @@ namespace Paralleler_Test
             var orderTask = Task.Run(() => OrderedParallel.ForAsync(0, 1, async (index, token) =>
             {
                 t0 += 1;
-                if (token.IsCancellationRequested)
+                if(token.IsCancellationRequested)
                     return;
                 t0 += 1;
                 await Task.Delay(200);
-                if (token.IsCancellationRequested)
+                if(token.IsCancellationRequested)
                     return;
                 t0 += 1;
             }, t0Token.Token, 1));

@@ -1,10 +1,10 @@
-﻿using System;
+using Egliss.Paralleler;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Egliss.Paralleler;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Paralleler_Test
 {
@@ -37,11 +37,11 @@ namespace Paralleler_Test
             var orderTask = Task.Run(() => OrderedParallel.ForEachAsync(t0, async (value, token) =>
             {
                 t0Result += 1;
-                if (token.IsCancellationRequested)
+                if(token.IsCancellationRequested)
                     return;
                 t0Result += 1;
                 await Task.Delay(200);
-                if (token.IsCancellationRequested)
+                if(token.IsCancellationRequested)
                     return;
                 t0Result += 1;
             }, t0Token.Token, 1));
