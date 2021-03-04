@@ -1,6 +1,6 @@
 # Paralleler
 [![NuGet version (Paralleler)](https://img.shields.io/nuget/v/Paralleler.svg?style=flat-square)](https://www.nuget.org/packages/Paralleler/)
-![.Net Core](https://github.com/Egliss/Paralleler/workflows/.NET%20Core/badge.svg)  
+[![.NET](https://github.com/Egliss/Paralleler/actions/workflows/dotnet.yml/badge.svg)](https://github.com/Egliss/Paralleler/actions/workflows/dotnet.yml)
 
 ## Summary
 Paralleler is additional implement of System.Threading.Parallel.  
