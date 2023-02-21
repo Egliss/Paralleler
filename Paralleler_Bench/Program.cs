@@ -1,9 +1,8 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using Egliss.Paralleler;
 using System.Threading.Tasks;
 
-namespace Paralleler_Bench
+namespace Paralleler.Benchmarks
 {
     public class Program
     {

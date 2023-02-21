@@ -1,4 +1,3 @@
-using Egliss.Paralleler;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -6,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Paralleler_Test
+namespace Paralleler.Tests
 {
     [TestClass]
     public class OrderedParallelForEachTest
