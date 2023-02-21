@@ -1,4 +1,4 @@
-name: .NET
+name: Build
 
 on:
   pull_request:
@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: |
         dotnet restore
@@ -28,4 +28,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: ParallelerOutput
-        path: Paralleler/bin/Release/*.nupkg
+        path: Paralleler/bin/Release/*.*pkg
