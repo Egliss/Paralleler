@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Paralleler.Benchmarks
 {
+    [MemoryDiagnoser]
     public class Program
     {
         private static void Main(string[] args)
