@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Egliss
+namespace Paralleler
 {
-    public class ParallelForEachContext<T>
+    internal class ParallelForEachContext<T>
     {
         // will lock() target
         private readonly object _mutex = new object();

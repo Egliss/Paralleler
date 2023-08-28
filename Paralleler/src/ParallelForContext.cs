@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Egliss
+namespace Paralleler
 {
     internal class ParallelForContext
     {

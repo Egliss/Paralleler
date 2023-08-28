@@ -1,10 +1,10 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using Egliss.Paralleler;
 using System.Threading.Tasks;
 
-namespace Paralleler_Bench
+namespace Paralleler.Benchmarks
 {
+    [MemoryDiagnoser]
     public class Program
     {
         private static void Main(string[] args)
