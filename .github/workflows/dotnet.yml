@@ -19,8 +19,7 @@ jobs:
         dotnet tool restore
     - name: Lint
       run: |
-        dotnet format whitespace
-        dotnet format style
+        ./scripts/lint.sh
     - name: Build
       run: dotnet build --no-restore
     - name: Test
